@@ -8,7 +8,3 @@ variable "region" {
   default = "europe-west2"
 }
 
-variable "credentials" {
- type        = string
- description = "Service account"
-}

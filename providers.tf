@@ -7,5 +7,6 @@ terraform {
   backend "gcs" {
     bucket = "myvik-tf-state-prod"
     prefix = "terraform/state"
+    credentials = "${var.gcp_credentials}"
   }
 }

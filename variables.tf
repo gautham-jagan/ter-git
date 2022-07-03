@@ -8,3 +8,8 @@ variable "region" {
   default = "europe-west2"
 }
 
+variable "gcp_credentials" {
+    type = string
+    description = "location of service account for gcp"  
+}
+

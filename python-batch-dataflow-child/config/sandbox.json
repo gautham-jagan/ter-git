@@ -1,0 +1,12 @@
+{
+    "run": {
+        "projectname": "hca-dei-sbx",
+        "location": "us-central1",
+        "input" : "gs://dataflow-samples/shakespeare/kinglear.txt",
+	    "staging": "gs://dataflow55_py2/staging",
+	    "temp" : "gs://dataflow55_py2/temp",
+	    "output" : "gs://dataflow55_py2/output",
+	    "subnetwork" : "https://www.googleapis.com/compute/v1/projects/hca-dei-sbx/regions/us-central1/subnetworks/bigtablepoc",
+        "filename": "sandbox.json"
+    }
+}

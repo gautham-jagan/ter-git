@@ -1,0 +1,66 @@
+inputs:
+  GOOGLE_CREDENTIALS: 
+    description: ""
+  projectname:
+    description: ""
+  location: 
+    description: ""
+  filename: 
+    description: ""
+  staging:
+    description: ""
+  temp:
+    description: ""
+  subnetwork:
+    description: ""
+  input:
+    description: ""
+  output:
+    description: ""
+  repository: 
+    description: "" 
+ 
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: ${{ inputs.repository }}
+
+    - id: 'auth'
+      name: Authenticate to Google Cloud
+      uses: 'google-github-actions/auth@v0'
+      with:
+          credentials_json: '${{ inputs.GOOGLE_CREDENTIALS }}'
+    - name: GCP setup
+      uses: 'google-github-actions/setup-gcloud@v0.6.0'
+      with:
+          project_id: '${{ inputs.projectname }}'
+      
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+          python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+       pip install wheel
+       pip install 'apache-beam[gcp]'
+      shell: sh
+      
+    - name: Execute Python Script
+      run: |
+        python -m apache_beam.examples.wordcount \
+        --project=${{ inputs.projectname }} \
+        --region=${{ inputs.location }} \
+        --input=${{ inputs.input }} \ \
+        --runner DataflowRunner \
+        --staging_location=${{ inputs.staging }} \
+        --temp_location=${{ inputs.temp }} \
+        --output=${{ inputs.output }} \
+        --subnetwork=${{ inputs.subnetwork }} \
+      shell: sh
+      
+      
+ 
